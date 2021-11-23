@@ -1,5 +1,3 @@
-#include<Wire.h>
-
 int phaseControlPin = 3; 
 int analogPin = A0;
 int triggPin =  4;
@@ -13,11 +11,7 @@ int controll=0;
 void setup() {
    pinMode(phaseControlPin, OUTPUT);
    pinMode(triggPin, INPUT);
-   Wire.onReceive(data);  
   // Serial.begin(9600);
-}
-void data(int x){
-  controll=Wire.read();
 }
 
 void dimmer(int percentage, int outputPin){
@@ -40,7 +34,7 @@ if(percentage>=1){
 
 void loop() {
    int set = 0;
-   currentState=controll; 
+   currentState=digitalRead(triggPin); 
    if(currentState!=previousState){
     set = analogRead(analogPin);
     dimmer(set,phaseControlPin);
